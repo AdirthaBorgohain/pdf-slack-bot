@@ -1,3 +1,4 @@
+import os
 import requests
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
@@ -10,7 +11,7 @@ class SlackMessageSender:
         Initialize the SlackMessageSender.
         """
         self._logger = configs.logger
-        self._webhook_url = configs.slack.webhook_url
+        self._webhook_url = os.getenv('SLACK_WEBHOOK_URL')
 
     @retry(
         stop=stop_after_attempt(3),
