@@ -70,4 +70,6 @@ if __name__ == "__main__":
         "Is google a competitor to the company?"
     ]
     AGENT_QUERY = "Answer the questions and post results on Slack"
-    asyncio.run(main(PDF_FILENAME, QUESTIONS, AGENT_QUERY))
+    response = asyncio.run(main(PDF_FILENAME, QUESTIONS, AGENT_QUERY))
+    if response:
+        print(response)
