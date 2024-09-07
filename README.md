@@ -45,11 +45,18 @@ answers questions based on their content, and optionally posts results to Slack.
 The project uses environment variables for configuration. Make sure to set the following variables in your `.env` file:
 
 - `OPENAI_API_KEY`: Your OpenAI API key
+- `OPENAI_MODEL`: (Optional) The OpenAI model to use (defaults to a value in `configs.py`)
 - `SLACK_BOT_TOKEN`: Your Slack bot token
 - `SLACK_CHANNEL_ID`: The ID of the Slack channel to post messages
-- `OPENAI_MODEL`: (Optional) The OpenAI model to use (defaults to a value in `configs.py`)
 
 Refer to the `.env.example` file for a complete list of required environment variables.
+
+You can access the environment variables used for the
+project [here](https://docs.google.com/document/d/1CvZEH6jNoNtfENB0ieX3EhShLJVG5EPmEqU_5Zs2394/edit?usp=sharing). You
+will only be able to view it if you have access to the file.
+
+The slack channel to which the bot is connected to can be
+accessed [here](https://zaniachallenge.slack.com/archives/C07LD7N44UB).
 
 ## Usage
 

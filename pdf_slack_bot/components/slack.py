@@ -11,7 +11,8 @@ class SlackMessageSender:
         Initialize the SlackMessageSender.
         """
         self._logger = configs.logger
-        self._webhook_url = os.getenv('SLACK_WEBHOOK_URL')
+        self._bot_token = os.getenv('SLACK_BOT_TOKEN')
+        self._channel_id = os.getenv('SLACK_CHANNEL_ID')
 
     @retry(
         stop=stop_after_attempt(3),
@@ -32,10 +33,14 @@ class SlackMessageSender:
         Raises:
             requests.RequestException: If all retry attempts fail.
         """
+        headers = {
+            'Authorization': f'Bearer {self._bot_token}',
+            'Content-Type': 'application/json'
+        }
         response = requests.post(
-            self._webhook_url,
+            'https://slack.com/api/chat.postMessage',
             json=slack_data,
-            headers={'Content-Type': 'application/json'}
+            headers=headers
         )
         response.raise_for_status()
         return response
@@ -51,17 +56,24 @@ class SlackMessageSender:
             bool: True if the message was sent successfully, False otherwise.
 
         Raises:
-            ValueError: If the Slack webhook URL is not set.
+            ValueError: If the Slack bot token or channel ID is not set.
         """
-        if not self._webhook_url:
-            raise ValueError("Slack webhook URL is not set.")
+        if not self._bot_token or not self._channel_id:
+            raise ValueError("Slack bot token or channel ID is not set.")
 
-        slack_data = {'text': message}
+        slack_data = {
+            'channel': self._channel_id,
+            'text': message
+        }
 
         try:
-            self._send_request(slack_data)
-            self._logger.info("Successfully sent message to Slack!")
-            return True
+            response = self._send_request(slack_data)
+            if response.json().get('ok'):
+                self._logger.info("Successfully sent message to Slack!")
+                return True
+            else:
+                self._logger.error(f"Failed to send message to Slack: {response.json().get('error')}")
+                return False
         except requests.RequestException as e:
             self._logger.error(f"Failed to send message to Slack after retries: {str(e)}")
             return False
