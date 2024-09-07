@@ -1,7 +1,7 @@
 import os
 from typing import List, Dict
 
-from utils import configs
+from pdf_slack_bot.utils import configs
 from llama_index.core.schema import Document
 from llama_index.readers.file import PyMuPDFReader
 
@@ -54,7 +54,7 @@ def main():
         documents = document_getter.get_documents_from_pdf(filepath=pdf_path)
         print(f"Successfully extracted {len(documents)} documents from {pdf_path}")
         for i, doc in enumerate(documents, 1):
-            print(f"Document {i}: {doc.text[:100]}...")  # Print first 100 characters of each document
+            print(f"Document {i}: {doc.text[:100]}...")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 

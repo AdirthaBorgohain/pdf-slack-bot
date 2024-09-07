@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
-from utils.logger import Logger
-from utils.helpers import *
 from dotenv import load_dotenv
+
+from pdf_slack_bot.utils.logger import Logger
+from pdf_slack_bot.utils.helpers import *
 
 root_dir = Path(__file__).parent.absolute().parent
 print("root_dir: ", root_dir)
@@ -21,7 +22,8 @@ logger = logger_handler.create_time_rotating_log(when="day", backup_count=10, na
 configs = {
     'root_dir': root_dir,
     'pdf_dir': pdf_dir,
-    'logger': logger
+    'logger': logger,
+    'DEFAULT_LLM': 'gpt-4o-mini'
 }
 
 configs = DotDict(configs)

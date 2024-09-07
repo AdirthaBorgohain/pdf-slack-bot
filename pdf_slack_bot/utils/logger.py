@@ -57,7 +57,7 @@ class Logger:
 
 
 if __name__ == '__main__':
-    logger_handler = Logger(log_file_name="test.log", log_file_dir="../logs")
+    logger_handler = Logger(log_file_name="test.log", log_file_dir="../../logs")
     logger = logger_handler.create_time_rotating_log(when="second")
     for i in range(5):
         logger.info("This is test log line %s" % i)

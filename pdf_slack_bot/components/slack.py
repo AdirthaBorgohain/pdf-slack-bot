@@ -2,7 +2,7 @@ import os
 import requests
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
-from utils import configs
+from pdf_slack_bot.utils import configs
 
 
 class SlackMessageSender:
