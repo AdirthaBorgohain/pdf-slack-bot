@@ -8,7 +8,7 @@ from pdf_slack_bot.utils.helpers import *
 root_dir = Path(__file__).parent.absolute().parent
 print("root_dir: ", root_dir)
 
-pdf_dir = os.path.join(root_dir, "pdf")
+pdf_dir = os.path.join(root_dir.parent, "pdf")
 os.makedirs(pdf_dir, exist_ok=True)
 
 log_dir = os.path.join(root_dir, "logs")
